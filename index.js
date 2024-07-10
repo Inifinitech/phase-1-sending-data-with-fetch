@@ -1,3 +1,5 @@
+const body = document.querySelector('body');
+
 function submitData(userName, userEmail) {
     return fetch("http://localhost:3000/users", {
         method: "POST",
@@ -8,10 +10,15 @@ function submitData(userName, userEmail) {
         body: JSON.stringify({name: userName, email: userEmail})
     })
         .then((response) => response.json())
-        .then((object) => console.log(object))
+        .then((object) => {
+            console.log(object);
+        const idmes = object.id
+        const idAppender = document.createElement('div');
+        idAppender.textContent = `ID: ${idmes}`;
+        body.appendChild(idAppender)
+})
         .catch((error) => {
 
-        const body = document.querySelector('body');
 //create a div to display the error
       const errorNotify = document.createElement('div');
       errorNotify.textContent = `Error: ${error.message}`;
@@ -19,4 +26,3 @@ function submitData(userName, userEmail) {
       body.appendChild(errorNotify);
 });
 }
-submitData('yoh', 'yoh@gmail.com').then(() => console.log('Just checking'));
